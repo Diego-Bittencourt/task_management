@@ -3,6 +3,7 @@ import msgActions from './actions.js';
 import msgGetters from './getters.js';
 
 export default {
+    namespaced: true,
     state() {
         return {
             messages: [

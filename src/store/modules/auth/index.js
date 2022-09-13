@@ -6,7 +6,8 @@ export default {
     state() {
         return {
             userId: 1,
-            userName: "Diego"
+            userName: "Diego",
+            token: "this is a dummy token"
         }
     },
     mutations: authMutations,
