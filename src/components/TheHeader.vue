@@ -3,8 +3,8 @@
         <nav>
             <img src="../assets/top.png">
             <ul>
-                <li><h2>Tasks</h2></li>
-                <li><h2>Messages</h2></li>
+                <li><h1>Tasks</h1></li>
+                <li><h1>Messages</h1></li>
             </ul>
         </nav>
     </header>
@@ -39,6 +39,9 @@ ul {
     list-style: none;
     display: flex;
     flex-direction: row;
-    align-content: space-around;
+    justify-content: space-around;
+    align-items: center;
+    flex: auto;
+    font-size: 2rem;
 }
 </style>
