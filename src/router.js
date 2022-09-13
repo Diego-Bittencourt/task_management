@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router';
 
 import LandingPage from './pages/LandingPage.vue';
 import TaskList from './pages/tasks/TaskList.vue';
+import MessagePage from './pages/messages/MessagePage.vue';
 import NotFound from './pages/NotFound.vue';
 
 // import store from './store/index.js';
@@ -20,6 +21,10 @@ const router = createRouter({
         {
             path: '/:notFound(.*)',
             component: NotFound
+        },
+        {
+            path: '/messages',
+            component: MessagePage
         }
     ]
 });
