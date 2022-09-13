@@ -3,7 +3,7 @@
         <nav>
             <img src="../assets/top.png">
             <ul>
-                <li><h1>Tasks</h1></li>
+                <router-link to="/tasklist"><li><h1>Tasks</h1></li></router-link>
                 <li><h1>Messages</h1></li>
             </ul>
         </nav>
