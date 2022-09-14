@@ -9,11 +9,13 @@ export default {
             messages: [
                 {
                     content: 'Testing message',
-                    from: 'Layana'
+                    from: 'Layana',
+                    date: '16/09/2022'
                 },
                 {
                     content: 'another testing message',
-                    from: 'Lorion'
+                    from: 'Lorion',
+                    date: '24/10/2022'
                 }
             ]
         }

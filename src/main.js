@@ -2,7 +2,7 @@ import { createApp } from 'vue';
 import App from './App.vue';
 import store from './store/index.js';
 import router from './router.js';
-import TheHeader from './components/TheHeader.vue';
+import TheHeader from './components/layout/TheHeader.vue';
 
 
 const app = createApp(App);

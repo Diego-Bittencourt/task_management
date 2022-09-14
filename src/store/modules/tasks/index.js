@@ -11,13 +11,15 @@ export default {
                     tag: 'payment',
                     content: 'someone didn\'t pay',
                     from: 'Layana',
-                    status: 'not yet'
+                    status: 'not yet',
+                    date: '15/02/2002'
                 },
                 {
                     tag: 'change class',
                     content: 'change a class',
                     from: 'Lorion',
-                    status: 'done'
+                    status: 'done',
+                    date: '01/01/2022'
                 }
             ]
         }
