@@ -3,8 +3,8 @@
         <nav>
             <img src="../../assets/top.png">
             <ul>
-                <router-link to="/tasklist"><li><h1>Tasks</h1></li></router-link>
-                <router-link to="/messages"><li><h1>Messages</h1></li></router-link>
+                <base-button to="/tasklist" link><li><h1>Tasks</h1></li></base-button>
+                <base-button to="/messages" link><li><h1>Messages</h1></li></base-button>
             </ul>
         </nav>
     </header>
@@ -18,7 +18,7 @@ export default {
 
 <style scoped>
 header {
-    width: 100%;
+    width: 100vw;
     background-color: #006172;
     color: #e6e6e6;
     padding: 1rem;
@@ -26,6 +26,8 @@ header {
 }
 
 nav {
+    width: 80%;
+    margin: 0 auto;
     display: flex;
     flex-direction: row;
 }

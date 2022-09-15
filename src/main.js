@@ -8,12 +8,14 @@ import router from './router.js';
 //import components
 import TheHeader from './components/layout/TheHeader.vue';
 import BaseCard from './components/UI/BaseCard.vue';
+import BaseButton from './components/UI/BaseButton.vue';
 
 const app = createApp(App);
 
 
 app.component('the-header', TheHeader);
 app.component('base-card', BaseCard);
+app.component('base-button', BaseButton);
 
 app.use(store);
 app.use(router);

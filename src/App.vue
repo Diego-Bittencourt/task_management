@@ -20,7 +20,7 @@ body {
   font-size: 1.6rem;
   line-height: 1.4;
   max-width: 1200px;
-  width: 80%;
+  /* width: 80%; */
   min-width: 300px;
   margin: 0 auto;
 }
@@ -45,5 +45,11 @@ a:visited {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+}
+
+ul,
+li {
+   text-indent: 0;
+   list-style-type: 0;
 }
 </style>

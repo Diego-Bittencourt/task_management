@@ -25,3 +25,12 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+ul,
+li {
+  
+  text-indent: 0;
+  list-style-type: none;
+}
+</style>
