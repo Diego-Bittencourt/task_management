@@ -1,4 +1,5 @@
 <template>
+<task-form></task-form>
   <ul>
     <task-item
       v-for="task in tasks"
@@ -14,9 +15,11 @@
 
 <script>
 import TaskItem from "../../components/tasks/TaskItem.vue";
+import TaskForm from "../../components/tasks/TaskForm.vue";
 export default {
   components: {
     TaskItem,
+    TaskForm
   },
   computed: {
     tasks() {

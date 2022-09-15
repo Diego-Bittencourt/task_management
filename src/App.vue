@@ -19,7 +19,7 @@ html {
 body {
   font-size: 1.6rem;
   line-height: 1.4;
-  max-width: 1200px;
+  /* max-width: 1200px; */
   /* width: 80%; */
   min-width: 300px;
   margin: 0 auto;

@@ -2,7 +2,7 @@
     <router-link v-if="link" :to="to">
         <slot></slot>
     </router-link>
-    <button v-if="simplebutton">
+    <button v-else>
         <slot></slot>
     </button>
 </template>
@@ -14,11 +14,6 @@ export default {
         type: Boolean,
         required: false,
         default: false,
-        },
-        button: {
-        type: Boolean,
-        required: false,
-        default: false
         },
         to: {
         type: String,
