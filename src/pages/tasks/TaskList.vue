@@ -1,14 +1,15 @@
 <template>
-<task-form></task-form>
-  <ul>
+<task-form @reloadTasks="loadTasks"></task-form>
+<h1 v-if="isLoading">Loading...</h1>
+  <ul v-else>
     <task-item
       v-for="task in tasks"
       :key="task.content"
-      :taskcontent="task.content"
-      :tasksender="task.from"
-      :tasktags="task.tag"
-      :taskdate="task.date"
-      :taskstatus="task.status"
+      :taskcontent="task.taskContent"
+      :tasksender="task.taskAuthor"
+      :tasktags="task.taskTopic"
+      :taskdate="task.taskDate"
+      :taskstatus="task.taskStatus"
     ></task-item>
   </ul>
 </template>
@@ -21,11 +22,31 @@ export default {
     TaskItem,
     TaskForm
   },
+  data() {
+    return {
+      isLoading: false
+    }
+  },
   computed: {
     tasks() {
       return this.$store.getters["tasks/getTasks"];
     },
   },
+  created() {
+    this.loadTasks();
+  },
+  methods: {
+    async loadTasks() {
+      this.isLoading = true;
+      try {
+        await this.$store.dispatch('tasks/getTasks');
+      }// end of the try
+        catch(error) {
+          this.error = error.message || 'Something went wrong';
+        }// end of the catch
+      this.isLoading = false; 
+    }
+  }
 };
 </script>
 

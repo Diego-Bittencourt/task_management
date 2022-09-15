@@ -1,13 +1,7 @@
 <template>
-<p>{{ taskDate }}</p>
-<p>{{ getUserName }}</p>
-<p>{{ taskContent }}</p>
-<p>{{ taskStatus }}</p>
-<p>{{ taskTopic }}</p>
-
 <base-card>
-  <form @submit.prevent="createTask">
-    <h1>Create a Task</h1>
+<base-button @click="toggleTaskForm"><h1 v-if="!isFormVisible">Create a Task</h1><h1 v-else>Close</h1></base-button>
+  <form @submit.prevent="createTask" v-if="isFormVisible">
     <div class="form-control">
     <label for="topic">Choose a topic</label>
     <select name="topic" id="topic" v-model="taskTopic">
@@ -41,14 +35,32 @@ export default {
             taskDate: "this.currentDate",
             taskContent: "",
             taskTopic: "",
-            taskStatus: ""
+            taskStatus: "Pendent",
+            isFormVisible: false,
+            formIsValid: true
         }
     },
     methods: {
           createTask() {
-            console.log("methodsubmit");
             let currentDate = new Date();
             this.taskDate = currentDate.getDate() + "/" + currentDate.getMonth() + "/" + currentDate.getFullYear();
+
+            //close form
+            this.isFormVisible = false;
+
+            const newTask = {
+              date: this.taskDate,
+              content: this.taskContent,
+              topic: this.taskTopic,
+              status: this.taskStatus,
+              author: this.getUserName
+            };
+
+            this.$store.dispatch('tasks/addTask', newTask);
+            this.$emit('reloadTasks');
+          },
+          toggleTaskForm() {
+            this.isFormVisible = !this.isFormVisible;
           }
     },
     computed: {
