@@ -30,6 +30,7 @@ nav {
     margin: 0 auto;
     display: flex;
     flex-direction: row;
+    justify-content: space-between;
 }
 
 img {
@@ -45,5 +46,7 @@ ul {
     align-items: center;
     flex: auto;
     font-size: 2rem;
+    max-width: 400px;
+    justify-self: flex-end;
 }
 </style>
