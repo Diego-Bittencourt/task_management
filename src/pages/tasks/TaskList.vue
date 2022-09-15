@@ -1,24 +1,27 @@
 <template>
+  <ul>
     <task-item
-    v-for="task in tasks"
-    :key="task.content"
-    :taskcontent="task.content"
-    :tasksender="task.from"
-    :tasktags="task.tag"
-    :taskdate="task.date"
-    :taskstatus="task.status"></task-item>
+      v-for="task in tasks"
+      :key="task.content"
+      :taskcontent="task.content"
+      :tasksender="task.from"
+      :tasktags="task.tag"
+      :taskdate="task.date"
+      :taskstatus="task.status"
+    ></task-item>
+  </ul>
 </template>
 
 <script>
-import TaskItem from '../../components/tasks/TaskItem.vue';
+import TaskItem from "../../components/tasks/TaskItem.vue";
 export default {
-    components: {
-        TaskItem
+  components: {
+    TaskItem,
+  },
+  computed: {
+    tasks() {
+      return this.$store.getters["tasks/getTasks"];
     },
-    computed: {
-        tasks() {
-            return this.$store.getters['tasks/getTasks'];
-        }
-    }
-}
+  },
+};
 </script>
