@@ -1,7 +1,7 @@
 <template>
-<base-card>
-<base-button @click="toggleTaskForm"><h1 v-if="!isFormVisible">Create a Task</h1><h1 v-else>Close</h1></base-button>
-  <form @submit.prevent="createTask" v-if="isFormVisible">
+
+
+  <form @submit.prevent="createTask">
     <div class="form-control">
     <label for="topic">Choose a topic</label>
     <select name="topic" id="topic" v-model="taskTopic">
@@ -17,14 +17,14 @@
       <textarea id="task" rows="5" v-model.trim="taskContent"></textarea>
     </div>
     <p class="errors" v-if="!formIsValid">
-      Please enter a valid email and message.
+      Please enter a valid task and topic.
     </p>
     <div class="actions">
       <!-- <base-button simplebutton>Send Message</base-button> -->
       <base-button simplebutton>Submit</base-button>
     </div>
   </form>
-</base-card>
+
 </template>
 
 <script>
@@ -36,17 +36,32 @@ export default {
             taskContent: "",
             taskTopic: "",
             taskStatus: "Pendent",
-            isFormVisible: false,
             formIsValid: true
         }
     },
     methods: {
           createTask() {
+            //validate form to avoid bugs
+            this.formIsValid = true;
+
+            //validating form
+            if (
+              this.taskDate === "" ||
+              this.taskContent === "" ||
+              this.taskTopic === "" ||
+              this.taskStatus === ""
+            ) {
+              this.formIsValid = false;
+              return;
+            }
+
+            //creating and assigning date
             let currentDate = new Date();
             this.taskDate = currentDate.getDate() + "/" + currentDate.getMonth() + "/" + currentDate.getFullYear();
 
             //close form
             this.isFormVisible = false;
+
 
             const newTask = {
               date: this.taskDate,
@@ -103,5 +118,10 @@ textarea:focus {
   border-color: #3d008d;
   background-color: #faf6ff;
   outline: none;
+}
+
+.errors {
+  color: red;
+  font-style: italic;
 }
 </style>
