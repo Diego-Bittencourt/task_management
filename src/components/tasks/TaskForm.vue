@@ -7,7 +7,7 @@
     <select name="topic" id="topic" v-model="taskTopic">
       <option disabled value="">Select one ...</option>
       <option value="payment">Payment</option>
-      <option value="trialclass">Trial Class</option>
+      <option value="trial">Trial Class</option>
       <option value="schedule">Class Schedule</option>
       <option value="other">Other</option>  
     </select> 
@@ -35,7 +35,7 @@ export default {
             taskDate: "this.currentDate",
             taskContent: "",
             taskTopic: "",
-            taskStatus: "Pendent",
+            taskStatus: "pending",
             formIsValid: true
         }
     },
