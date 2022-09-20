@@ -1,4 +1,5 @@
 <template>
+
   <base-card>
     <div class="btnwrapper">
       <base-button @click="openTaskForm" v-if="!isFormVisible"
@@ -22,7 +23,8 @@
   <ul v-else>
     <task-item
       v-for="task in filteredTasks"
-      :key="task.content"
+      :key="task.id"
+      :taskId="task.id"
       :taskcontent="task.taskContent"
       :tasksender="task.taskAuthor"
       :tasktags="task.taskTopic"

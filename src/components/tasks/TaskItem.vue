@@ -8,7 +8,7 @@
           <p><base-badge :format="tasktags">{{ tasktags.toUpperCase() }}</base-badge></p>
         </div>
         <div class="column">
-          <p><base-badge :format="taskstatus">{{ taskstatus.toUpperCase() }}</base-badge></p>
+          <p @click="toggleStatus"><base-badge statusbadge :format="taskstatus">{{ taskstatus.toUpperCase() }}</base-badge></p>
           
         </div>
         
@@ -20,7 +20,12 @@
 
 <script>
 export default {
-  props: ["tasksender", "taskcontent", "taskdate", "taskstatus", "tasktags"],
+  props: ["tasksender", "taskcontent", "taskdate", "taskstatus", "tasktags", "taskId"],
+  methods: {
+    toggleStatus() {
+
+    }
+  }
 };
 </script>
 
