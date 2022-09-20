@@ -2,16 +2,17 @@
   <li>
     <base-card>
       <div class="msgdata"><h2>From: {{ sender }}</h2>
-      <h2>Date: {{ date }}</h2>
+      <h2>Title: {{ title }}</h2>
       </div>
       <p>{{ msgcontent }}</p>
+      <p class="msgdate">Send on {{ date }}</p>
     </base-card>
   </li>
 </template>
 
 <script>
 export default {
-  props: ["sender", "msgcontent", "date"],
+  props: ["sender", "msgcontent", "date", "title"],
 };
 </script>
 
@@ -21,5 +22,12 @@ export default {
   flex-direction: row;
   justify-content: space-around;
   margin-bottom: 2rem;
+}
+
+.msgdate {
+  color: #999;
+  font-size: 1.2rem;
+  margin-top: 2rem;
+  text-align: right;
 }
 </style>

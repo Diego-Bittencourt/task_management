@@ -6,7 +6,7 @@ export default {
     state() {
         return {
             userId: 1,
-            userName: "Didizinho",
+            userName: "diego",
             token: "this is a dummy token"
         }
     },

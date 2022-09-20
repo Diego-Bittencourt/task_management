@@ -1,48 +1,101 @@
 <template>
-<base-card>
-    <form @submit.prevent="createMessage">
-    <div class="form-control">
-    <label for="receiver">Send a message to:</label>
-    <select name="receiver" id="receiver" v-model="messageReceiver">
-      <option disabled value="">Select one ...</option>
-      <option value="diego">Diego</option>
-      <option value="lovely">Lovely</option>
-      <option value="jeanette">Jeanette</option>
-      <option value="shahin">Shahin</option>  
-      <option value="meira">Meira</option> 
-      <option value="all">All</option> 
-    </select> 
-    </div>
-    <div class="form-control">
-      <label for="messagetitle">Title</label>
-      <input type="messagetitle" v-model="messageTitle">
-    </div>
-    <div class="form-control">
-      <label for="messagecontent">Message</label>
-      <textarea id="messagecontent" rows="5" v-model.trim="messageContent"></textarea>
-    </div>
-    <p class="errors" v-if="!formIsValid">
-      Please enter a valid message, title and receiver.
-    </p>
-    <div class="actions">
-      <!-- <base-button simplebutton>Send Message</base-button> -->
-      <base-button simplebutton>Submit</base-button>
-    </div>
-  </form>
+  <base-card>
+    <base-button @click="toggleForm">
+      <span v-if="!isFormVisible">Send Message</span>
+      <span v-else>Close</span>
+    </base-button>
+    <form @submit.prevent="createMessage" v-if="isFormVisible">
+      <div class="form-control">
+        <label for="receiver">Send a message to:</label>
+        <select name="receiver" id="receiver" v-model="messageReceiver">
+          <option disabled value="">Select one ...</option>
+          <option value="diego">Diego</option>
+          <option value="lovely">Lovely</option>
+          <option value="jeanette">Jeanette</option>
+          <option value="shahin">Shahin</option>
+          <option value="meira">Meira</option>
+          <option value="all">All</option>
+        </select>
+      </div>
+      <div class="form-control">
+        <label for="messagetitle">Title</label>
+        <input type="messagetitle" v-model="messageTitle" />
+      </div>
+      <div class="form-control">
+        <label for="messagecontent">Message</label>
+        <textarea
+          id="messagecontent"
+          rows="5"
+          v-model.trim="messageContent"
+        ></textarea>
+      </div>
+      <p class="errors" v-if="!formIsValid">
+        Please enter a valid message, title and receiver.
+      </p>
+      <div class="actions">
+        <!-- <base-button simplebutton>Send Message</base-button> -->
+        <base-button simplebutton>Submit</base-button>
+      </div>
+    </form>
   </base-card>
 </template>
 
 <script>
 export default {
-    data() {
-        return {
-            messageContent: "",
-            messageTitle: "",
-            messageReceiver: "",
-            formIsValid: true
-        }
-    }
-}
+  data() {
+    return {
+      messageContent: "",
+      messageTitle: "",
+      messageReceiver: "",
+      messageDate: "",
+      formIsValid: true,
+      isFormVisible: false
+    };
+  },
+  methods: {
+    toggleForm() {
+        this.isFormVisible = !this.isFormVisible;
+    },
+    createMessage() {
+            //validate form to avoid bugs
+            this.formIsValid = true;
+
+            //validating form
+            if (
+              this.messageContent === "" ||
+              this.messageTitle === "" ||
+              this.messageReceiver === ""
+            ) {
+              this.formIsValid = false;
+              return;
+            }
+
+            //creating and assigning date
+            let currentDate = new Date();
+            this.messageDate = currentDate.getDate() + "/" + currentDate.getMonth() + "/" + currentDate.getFullYear();
+
+            //close form
+            this.isFormVisible = false;
+
+
+            const newMessage = {
+              date: this.messageDate,
+              content: this.messageContent,
+              title: this.messageTitle,
+              receiver: this.messageReceiver,
+              author: this.getUserName
+            };
+
+            this.$store.dispatch('messages/addMessage', newMessage);
+            this.$emit('messageSent');
+          },
+  },
+  computed: {
+    getUserName() {
+        return this.$store.getters.getUserName;
+      }
+  }
+};
 </script>
 
 <style scoped>
