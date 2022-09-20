@@ -1,6 +1,6 @@
 <template>
   <ul>
-    <message-form></message-form>
+    <message-form @messageSent="loadMessages"></message-form>
     <base-card v-if="!iMessagesListEmpty">Sorry, no messages to show.</base-card>
     <h1 v-if="isLoading">Loading...</h1>
     <message-item
