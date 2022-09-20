@@ -1,5 +1,6 @@
 <template>
   <ul>
+    <message-form></message-form>
     <message-item
       v-for="message in getMessages"
       :key="message.content"
@@ -12,9 +13,11 @@
 
 <script>
 import MessageItem from "../../components/messages/MessageItem.vue";
+import MessageForm from "../../components/messages/MessageForm.vue";
 export default {
   components: {
     MessageItem,
+    MessageForm
   },
   computed: {
     getMessages() {
