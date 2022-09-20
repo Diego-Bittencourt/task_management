@@ -9,6 +9,7 @@ import router from './router.js';
 import TheHeader from './components/layout/TheHeader.vue';
 import BaseCard from './components/UI/BaseCard.vue';
 import BaseButton from './components/UI/BaseButton.vue';
+import BaseBadge from './components/UI/BaseBadge.vue';
 
 const app = createApp(App);
 
@@ -16,6 +17,7 @@ const app = createApp(App);
 app.component('the-header', TheHeader);
 app.component('base-card', BaseCard);
 app.component('base-button', BaseButton);
+app.component('base-badge', BaseBadge);
 
 app.use(store);
 app.use(router);

@@ -4,11 +4,11 @@
       <h1>TASK: {{ taskcontent }}</h1>
       <div class="taskdata">
         <div class="column">
-          <p>Sent by: {{ tasksender }}</p>
-          <p>Topic: {{ tasktags }}</p>
+          <p>Sent by: {{ tasksender.toUpperCase() }}</p>
+          <p><base-badge :format="tasktags">{{ tasktags.toUpperCase() }}</base-badge></p>
         </div>
         <div class="column">
-          <p>STATUS: {{ taskstatus }}</p>
+          <p><base-badge :format="taskstatus">{{ taskstatus.toUpperCase() }}</base-badge></p>
           
         </div>
         
