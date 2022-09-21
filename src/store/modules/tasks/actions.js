@@ -1,4 +1,26 @@
 export default {
+    async changeStatus(context, payload) {
+        //action to change a task status
+
+        console.log(payload);
+
+        const taskId = payload.id;
+        const taskStatus = { status: payload.status }
+
+        const response = await fetch(`https://rainbow-task-default-rtdb.asia-southeast1.firebasedatabase.app/tasks/${taskId}/.json`,
+        {
+            method: "PATCH",
+            body: JSON.stringify(taskStatus)
+        }
+        );
+
+        const responseData = await response.json();
+
+        if (!response.ok) {
+            const error = new Error(responseData.message || 'Failed to send request');
+              throw error;
+        }
+    },
     async addTask(context, payload) {
         //creating the object
         const newTask = payload;

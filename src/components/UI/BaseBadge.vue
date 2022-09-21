@@ -2,9 +2,9 @@
     <div v-if="statusbadge" class="status" :class="format">
         <slot></slot>
         <div class="statusbutton">
-            <div class="optbtn">Done</div>
-            <div class="optbtn">Pending</div>
-            <div class="optbtn">Processing</div>
+            <div class="optbtn" @click="setStatus('done')">Done</div>
+            <div class="optbtn" @click="setStatus('pending')">Pending</div>
+            <div class="optbtn" @click="setStatus('processing')">Processing</div>
         </div>
     </div>
     <div v-else class="topic" :class="format">
@@ -25,6 +25,11 @@ export default {
             type: Boolean,
             required: false,
             default: false
+        }
+    },
+    methods: {
+        setStatus(status) {
+            this.$emit("set-status", status);
         }
     }
 

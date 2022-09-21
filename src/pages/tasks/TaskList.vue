@@ -1,5 +1,4 @@
 <template>
-
   <base-card>
     <div class="btnwrapper">
       <base-button @click="openTaskForm" v-if="!isFormVisible"
@@ -30,6 +29,7 @@
       :tasktags="task.taskTopic"
       :taskdate="task.taskDate"
       :taskstatus="task.taskStatus"
+      @reloadTasks="loadTasks"
     ></task-item>
   </ul>
 </template>
