@@ -2,7 +2,6 @@ export default {
     async changeStatus(context, payload) {
         //action to change a task status
 
-        console.log(payload);
 
         const taskId = payload.id;
         const taskStatus = { status: payload.status }

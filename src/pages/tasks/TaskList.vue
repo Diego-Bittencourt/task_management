@@ -29,7 +29,7 @@
       :tasktags="task.taskTopic"
       :taskdate="task.taskDate"
       :taskstatus="task.taskStatus"
-      @reloadTasks="loadTasks"
+      @getTasks="loadTasks"
     ></task-item>
   </ul>
 </template>
@@ -95,7 +95,6 @@ export default {
   },
   methods: {
     setFilters(payload) {
-      console.log(payload);
       this.activeFilters = payload;
     },
     openTaskForm() {

@@ -38,6 +38,7 @@ export default {
     "tasktags",
     "taskId",
   ],
+  emits: ['getTasks'],
   data() {
     return {
       changeStatus: false,
@@ -59,7 +60,7 @@ export default {
         this.error = error.message || "Something went wrong";
       }
 
-      this.$emit('reloadTasks');
+      this.$emit('getTasks');
     }
   },
 };

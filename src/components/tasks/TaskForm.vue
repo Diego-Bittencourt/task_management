@@ -1,16 +1,14 @@
 <template>
-
-
   <form @submit.prevent="createTask">
     <div class="form-control">
-    <label for="topic">Choose a topic</label>
-    <select name="topic" id="topic" v-model="taskTopic">
-      <option disabled value="">Select one ...</option>
-      <option value="payment">Payment</option>
-      <option value="trial">Trial Class</option>
-      <option value="schedule">Class Schedule</option>
-      <option value="other">Other</option>  
-    </select> 
+      <label for="topic">Choose a topic</label>
+      <select name="topic" id="topic" v-model="taskTopic">
+        <option disabled value="">Select one ...</option>
+        <option value="payment">Payment</option>
+        <option value="trial">Trial Class</option>
+        <option value="schedule">Class Schedule</option>
+        <option value="other">Other</option>
+      </select>
     </div>
     <div class="form-control">
       <label for="task">Task</label>
@@ -24,66 +22,70 @@
       <base-button simplebutton>Submit</base-button>
     </div>
   </form>
-
 </template>
 
 <script>
 export default {
-    data() {
-        return {
-            // userName: this.getUserName,
-            taskDate: "this.currentDate",
-            taskContent: "",
-            taskTopic: "",
-            taskStatus: "pending",
-            formIsValid: true
-        }
-    },
-    methods: {
-          createTask() {
-            //validate form to avoid bugs
-            this.formIsValid = true;
+  emits: ['reloadTasks'],
+  data() {
+    return {
+      // userName: this.getUserName,
+      taskDate: "this.currentDate",
+      taskContent: "",
+      taskTopic: "",
+      taskStatus: "pending",
+      formIsValid: true,
+    };
+  },
+  methods: {
+    createTask() {
+      //validate form to avoid bugs
+      this.formIsValid = true;
 
-            //validating form
-            if (
-              this.taskDate === "" ||
-              this.taskContent === "" ||
-              this.taskTopic === "" ||
-              this.taskStatus === ""
-            ) {
-              this.formIsValid = false;
-              return;
-            }
-
-            //creating and assigning date
-            let currentDate = new Date();
-            this.taskDate = currentDate.getDate() + "/" + currentDate.getMonth() + "/" + currentDate.getFullYear();
-
-            //close form
-            this.isFormVisible = false;
-
-
-            const newTask = {
-              date: this.taskDate,
-              content: this.taskContent,
-              topic: this.taskTopic,
-              status: this.taskStatus,
-              author: this.getUserName
-            };
-
-            this.$store.dispatch('tasks/addTask', newTask);
-            this.$emit('reloadTasks');
-          },
-          toggleTaskForm() {
-            this.isFormVisible = !this.isFormVisible;
-          }
-    },
-    computed: {
-      getUserName() {
-        return this.$store.getters.getUserName;
+      //validating form
+      if (
+        this.taskDate === "" ||
+        this.taskContent === "" ||
+        this.taskTopic === "" ||
+        this.taskStatus === ""
+      ) {
+        this.formIsValid = false;
+        return;
       }
-    }
-}
+
+      //creating and assigning date
+      let currentDate = new Date();
+      this.taskDate =
+        currentDate.getDate() +
+        "/" +
+        currentDate.getMonth() +
+        "/" +
+        currentDate.getFullYear();
+
+      //close form
+      this.isFormVisible = false;
+
+      const newTask = {
+        date: this.taskDate,
+        content: this.taskContent,
+        topic: this.taskTopic,
+        status: this.taskStatus,
+        author: this.getUserName,
+      };
+
+      this.$store.dispatch("tasks/addTask", newTask);
+      this.$emit("reloadTasks");
+    },
+    toggleTaskForm() {
+      this.isFormVisible = !this.isFormVisible;
+    },
+  },
+  computed: {
+    getUserName() {
+      return this.$store.getters.getUserName;
+    },
+  },
+};
 </script>
 
 <style scoped>

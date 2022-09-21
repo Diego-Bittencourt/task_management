@@ -24,8 +24,11 @@ export default {
   },
   data() {
     return {
-      isLoading: false,
+      isLoading: true,
     };
+  },
+  created() {
+    this.loadMessages();
   },
   computed: {
     getMessages() {
@@ -46,17 +49,14 @@ export default {
 
       try {
         //fetching messages from firebase
-        this.$store.dispatch("messages/getMessages", userName);
+        await this.$store.dispatch("messages/getMessages", userName);
       } catch (error) {
         this.error = error.message || "Something went wrong";
       } // end of the catch
 
-      this.isLoading = false;
+       this.isLoading = false;
     },
-  },
-  created() {
-    this.loadMessages();
-  },
+  }
 };
 </script>
 
