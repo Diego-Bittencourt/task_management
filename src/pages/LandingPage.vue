@@ -1,14 +1,21 @@
 <template>
+<auth-log></auth-log>
+  <base-card>
   <h1>Welcome, {{ userName }}.</h1>
   <p>
     This is the task platform to enhance the communication with the school
     staff.
   </p>
-  {{ tasks }}
+  </base-card>
+  
 </template>
 
 <script>
+import AuthLog from '../components/auth/AuthLog.vue';
 export default {
+  components: {
+    AuthLog
+  },
   computed: {
     userName() {
       return this.$store.getters.getUserName;

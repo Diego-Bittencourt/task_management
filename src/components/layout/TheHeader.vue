@@ -1,7 +1,7 @@
 <template>
     <header>
         <nav>
-            <img src="../../assets/top.png">
+            <img src="../../assets/top.png" @click="backTop">
             <ul>
                 <base-button to="/tasklist" link><li><h1>Tasks</h1></li></base-button>
                 <base-button to="/messages" link><li><h1>Messages</h1></li></base-button>
@@ -12,7 +12,11 @@
 
 <script>
 export default {
-    
+    methods: {
+        backTop() {
+            this.$router.push("/");
+        }
+    }
 }
 </script>
 
