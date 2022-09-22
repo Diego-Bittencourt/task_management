@@ -1,16 +1,16 @@
 <template>
-    <base-card>
+  <base-card>
     <form @submit.prevent="logIn" v-if="!isLogIn">
       <div class="form-control">
         <h2>Login</h2>
         <label for="email">Email</label>
-        <input  type="text" id="email" v-model.trim="userMail">
+        <input type="email" id="email" v-model.trim="userMail" />
       </div>
       <div class="form-control">
         <label for="password">Password</label>
-        <input type="password" id="password" v-model="userPassword" />
+        <input type="password" id="password" v-model.trim="userPassword" />
       </div>
-      
+
       <p class="errors" v-if="!formIsValid">
         Please enter a valid message, title and receiver.
       </p>
@@ -28,7 +28,35 @@ export default {
             isLogIn: false,
             userEmail: "",
             userPassword: "",
-            formIsValid: true
+            formIsValid: true,
+            error: null
+        }
+    },
+    methods: {
+        logIn() {
+            this.formIsValid = true;
+
+            if (
+                this.userEmail === "" ||
+                this.userPassword === "" ||
+                this.userPassword.length < 8
+            ) {
+                this.formIsValid = false;
+                return
+            }
+
+            this.isLoading = true;
+
+            try {
+                await this.$store.dispatch('logIn', {
+                    userEmail: this.userEmail,
+                    userPassword: this.userPassword
+                })
+            } catch(err) {
+                this.error = err.message || 'Failed to authenticate.';
+            }
+
+
         }
     }
 }
@@ -40,7 +68,7 @@ button {
 }
 
 h2 {
-    margin-bottom: 1.6rem;
+  margin-bottom: 1.6rem;
 }
 
 .form-control {
