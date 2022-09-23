@@ -58,6 +58,7 @@ export default {
 
       this.isLoading = true;
 
+
       try {
         await this.$store.dispatch("registerUser", {
           userEmail: this.userEmail,

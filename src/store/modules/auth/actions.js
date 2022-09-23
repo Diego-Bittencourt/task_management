@@ -1,4 +1,5 @@
 export default {
+  // ######### LOGIN USER #########
   async logIn(context, payload) {
     //setting the login API url
     let url =
@@ -22,19 +23,51 @@ export default {
       throw error;
     }
 
-    //setting the user info in memory
+    //setting the user info in memory using mutation
     context.commit("setUser", {
       token: responseData.idToken,
       userId: responseData.localId,
     });
+
+    //fetch user name
+    context.commit("fetchUserName", {
+      userEmail: payload.userEmail
+    })
   },
+  //####################### FETCH USER NAME #########################
+  async fetchUserName(context, payload) {
+    // let userEmail = payload.userEmail;
+    console.log(payload);
+    //get method to fetch the users data
+    const response = await fetch('https://rainbow-task-default-rtdb.asia-southeast1.firebasedatabase.app/users');
+
+    //grab the response from the database
+    const responseData = await response.json();
+
+    //checking for errors
+    if (!response.ok) {
+      const error = new Error(responseData.message || "Failed to access the database");
+      throw error;
+    }
+
+
+
+
+    //setting the user name in memory using the mutation
+    context.commit("setUserName", {
+      userEmail: responseData.userEmail
+    });
+  },
+  //######### REGISTER USER ####################
   async registerUser(context, payload) {
+
     //setting the login API url
     let url =
       "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyC9yvVF6oOB0ORUImpiSwoRxzrZ5pV6Udc";
 
+      //sending the data to login API
     const response = await fetch(url, {
-      method: "POST",
+      method: 'POST',
       body: JSON.stringify({
         email: payload.userEmail,
         password: payload.userPassword,
@@ -44,6 +77,7 @@ export default {
 
     //grab the response from database
     const responseData = await response.json();
+    
 
     //checking for errors
     if (!response.ok) {
@@ -51,10 +85,45 @@ export default {
       throw error;
     }
 
-    //setting the user info in memory
+    //setting the user info in memory using the mutation
     context.commit("setUser", {
       token: responseData.idToken,
       userId: responseData.localId,
     });
+
+    context.dispatch("addUserName", {
+      userName: payload.userName,
+      userEmail: payload.userEmail,
+      token: responseData.idToken
+    })
+  },
+  //############# ADD USER NAME ###########################
+  async addUserName(context, payload) {
+
+    //grab the user name and email
+    let userName = payload.userName;
+    let userEmail = payload.userEmail;
+    let token = payload.token;
+    console.log("token: ", token)
+
+    //send the user name to database and add to the users array
+    const response = await fetch(`https://rainbow-task-default-rtdb.asia-southeast1.firebasedatabase.app/users.json?auth=${token}`, {
+      method: "POST",
+      body: JSON.stringify({
+        userName: userName,
+        userEmail: userEmail
+      })
+    }); 
+
+    const responseData = await response.json();
+
+    if(!response.ok) {
+      const error= new Error(responseData.message || "Something went wrong. Try again later.");
+      throw error;
+    }
+
+    context.commit("setUserName", payload.userName);
+
   }
+  
 };
