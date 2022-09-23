@@ -1,8 +1,13 @@
 <template>
-  <base-card>
-    <form @submit.prevent="logIn" v-if="!isLogIn">
+    <base-card>
+    <form @submit.prevent="registerUser">
+      
+        <h2>Create an Account</h2>
+        <div class="form-control">
+        <label for="username">Name</label>
+        <input type="text" id="username" v-model.trim="userName" />
+      </div>
       <div class="form-control">
-        <h2>Login</h2>
         <label for="email">Email</label>
         <input type="email" id="email" v-model.trim="userEmail" />
       </div>
@@ -17,29 +22,35 @@
       <div class="actions">
         <base-button simplebutton>Login</base-button>
       </div>
-      <h3>Not registered yet? Create an account <router-link to="/register">here</router-link></h3>
+      
     </form>
   </base-card>
 </template>
+
+
 
 <script>
 export default {
   data() {
     return {
-      isLogIn: false,
       userEmail: "",
       userPassword: "",
+      userName: "",
       formIsValid: true,
       error: null,
     };
   },
   methods: {
-    async logIn() {
+    async registerUser() {
       this.formIsValid = true;
+
+        this.userName = this.userName[0].toUpperCase() + this.userName.slice(1);
+
       if (
         this.userEmail === "" ||
         this.userPassword === "" ||
-        this.userPassword.length < 8
+        this.userPassword.length < 8 ||
+        this.userName === ""
       ) {
         this.formIsValid = false;
         return;
@@ -48,9 +59,10 @@ export default {
       this.isLoading = true;
 
       try {
-        await this.$store.dispatch("logIn", {
+        await this.$store.dispatch("registerUser", {
           userEmail: this.userEmail,
           userPassword: this.userPassword,
+          userName: this.userName
         });
       } catch (err) {
         this.error = err.message || "Failed to authenticate.";
@@ -61,6 +73,7 @@ export default {
   },
 };
 </script>
+
 
 <style scoped>
 button {
