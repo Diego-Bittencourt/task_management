@@ -1,10 +1,14 @@
 export default {
     async addMessage(context, payload) {
+
+        //grab the token
+        const token = context.rootGetters.token;
+
         //creating the object
         const newMessage = payload;
     
         //create the post
-        const response = await fetch(`https://rainbow-task-default-rtdb.asia-southeast1.firebasedatabase.app/messages/${payload.receiver}.json`,
+        const response = await fetch(`https://rainbow-task-default-rtdb.asia-southeast1.firebasedatabase.app/messages/${payload.receiver}.json?auth=${token}`,
             {
                 method: "POST",
                 body: JSON.stringify(newMessage)
@@ -20,11 +24,14 @@ export default {
     },
     async getMessages(context, payload) {
 
+        //grab the token
+        const token = context.rootGetters.token;
+
         //get username
         let userName = payload;
 
         //create the fetch
-        const response = await fetch(`https://rainbow-task-default-rtdb.asia-southeast1.firebasedatabase.app/messages/${userName}.json`);
+        const response = await fetch(`https://rainbow-task-default-rtdb.asia-southeast1.firebasedatabase.app/messages/${userName}.json?auth=${token}`);
 
         //accessing the fetched data's response
         const responseData = await response.json();

@@ -2,11 +2,13 @@ export default {
     async changeStatus(context, payload) {
         //action to change a task status
 
+        //grab the token
+        const token = context.rootGetters.token;
 
         const taskId = payload.id;
         const taskStatus = { status: payload.status }
 
-        const response = await fetch(`https://rainbow-task-default-rtdb.asia-southeast1.firebasedatabase.app/tasks/${taskId}/.json`,
+        const response = await fetch(`https://rainbow-task-default-rtdb.asia-southeast1.firebasedatabase.app/tasks/${taskId}/.json?auth=${token}`,
         {
             method: "PATCH",
             body: JSON.stringify(taskStatus)
@@ -21,11 +23,15 @@ export default {
         }
     },
     async addTask(context, payload) {
+
+        //grab the token
+        const token = context.rootGetters.token;
+
         //creating the object
         const newTask = payload;
     
         //create the post
-        const response = await fetch(`https://rainbow-task-default-rtdb.asia-southeast1.firebasedatabase.app/tasks.json`,
+        const response = await fetch(`https://rainbow-task-default-rtdb.asia-southeast1.firebasedatabase.app/tasks.json?auth=${token}`,
             {
                 method: "POST",
                 body: JSON.stringify(newTask)
@@ -41,8 +47,11 @@ export default {
     },
     async getTasks(context) {
 
+        //grab the token
+        const token = context.rootGetters.token;
+
         //create the fetch
-        const response = await fetch(`https://rainbow-task-default-rtdb.asia-southeast1.firebasedatabase.app/tasks.json`);
+        const response = await fetch(`https://rainbow-task-default-rtdb.asia-southeast1.firebasedatabase.app/tasks.json?auth=${token}`);
 
         //accessing the fetched data's response
         const responseData = await response.json();
