@@ -4,7 +4,7 @@
       <div class="form-control">
         <h2>Login</h2>
         <label for="email">Email</label>
-        <input type="email" id="email" v-model.trim="userMail" />
+        <input type="email" id="email" v-model.trim="userEmail" />
       </div>
       <div class="form-control">
         <label for="password">Password</label>
@@ -12,7 +12,7 @@
       </div>
 
       <p class="errors" v-if="!formIsValid">
-        Please enter a valid message, title and receiver.
+        Please enter a valid email and password.
       </p>
       <div class="actions">
         <base-button simplebutton>Login</base-button>
@@ -33,9 +33,8 @@ export default {
         }
     },
     methods: {
-        logIn() {
+        async logIn() {
             this.formIsValid = true;
-
             if (
                 this.userEmail === "" ||
                 this.userPassword === "" ||
