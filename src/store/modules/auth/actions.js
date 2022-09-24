@@ -41,7 +41,8 @@ export default {
 
     //grab the user name
     let userEmail = payload.userEmail;
-    //get method to fetch the users data
+
+    // get method to fetch the users data
     const response = await fetch(`https://rainbow-task-default-rtdb.asia-southeast1.firebasedatabase.app/users.json?auth=${token}`);
 
     //grab the response from the database
@@ -52,14 +53,17 @@ export default {
       const error = new Error(responseData.message || "Failed to access the database");
       throw error;
     }
-    console.log(userEmail);
-    console.log(responseData);
 
+    //setting the username in memory from the database
+    for(const key in responseData) {
+      if (userEmail === responseData[key].userEmail) {
+        context.commit("setUserName", {
+          userName: responseData[key].userName
+        })
+      }
+    }
 
-    //setting the user name in memory using the mutation
-    // // context.commit("setUserName", {
-    // //   userEmail: responseData.userEmail
-    // });
+   
   },
   //######### REGISTER USER ####################
   async registerUser(context, payload) {
