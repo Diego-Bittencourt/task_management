@@ -5,10 +5,10 @@
       <h1>TASK: {{ taskcontent }}</h1>
       <div class="taskdata">
         <div class="column">
-          <p>Sent by: {{ tasksender.toUpperCase() }}</p>
+          <p>Sent by: {{ tasksender }}</p>
           <p>
             <base-badge :format="tasktags">{{
-              tasktags.toUpperCase()
+              tasktagsUP
             }}</base-badge>
           </p>
         </div>
@@ -18,7 +18,7 @@
               statusbadge
               :format="taskstatus"
               @set-status="changeTaskStatus"
-              >{{ taskstatus.toUpperCase() }}</base-badge
+              >{{ taskstatusUP }}</base-badge
             >
           </p>
         </div>
@@ -44,8 +44,17 @@ export default {
       changeStatus: false,
       dialogTitle: "Confirm change status to " + this.setStatus,
       setStatus: "",
-      error: null
+      error: null,
+      
     };
+  },
+  computed: {
+    taskstatusUP() {
+     return this.taskstatus.toUpperCase();
+    },
+    tasktagsUP() {
+      return this.tasktags.toUpperCase();
+    }
   },
   methods: {
     async changeTaskStatus(status) {

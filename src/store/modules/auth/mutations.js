@@ -4,7 +4,6 @@ export default {
         state.token = payload.token;
     },
     setUserName(state, payload) {
-        console.log(payload)
         state.userName = payload.userName;
     }
 }
