@@ -6,7 +6,7 @@ export default {
       "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyC9yvVF6oOB0ORUImpiSwoRxzrZ5pV6Udc";
 
     const response = await fetch(url, {
-      method: "POST",
+      method: 'POST',
       body: JSON.stringify({
         email: payload.userEmail,
         password: payload.userPassword,
@@ -30,16 +30,19 @@ export default {
     });
 
     //fetch user name
-    context.commit("fetchUserName", {
+    context.dispatch("fetchUserName", {
       userEmail: payload.userEmail
     })
   },
   //####################### FETCH USER NAME #########################
   async fetchUserName(context, payload) {
-    // let userEmail = payload.userEmail;
-    console.log(payload);
+    //grab the token
+    let token = context.rootGetters.token;
+
+    //grab the user name
+    let userEmail = payload.userEmail;
     //get method to fetch the users data
-    const response = await fetch('https://rainbow-task-default-rtdb.asia-southeast1.firebasedatabase.app/users');
+    const response = await fetch(`https://rainbow-task-default-rtdb.asia-southeast1.firebasedatabase.app/users.json?auth=${token}`);
 
     //grab the response from the database
     const responseData = await response.json();
@@ -49,14 +52,14 @@ export default {
       const error = new Error(responseData.message || "Failed to access the database");
       throw error;
     }
-
-
+    console.log(userEmail);
+    console.log(responseData);
 
 
     //setting the user name in memory using the mutation
-    context.commit("setUserName", {
-      userEmail: responseData.userEmail
-    });
+    // // context.commit("setUserName", {
+    // //   userEmail: responseData.userEmail
+    // });
   },
   //######### REGISTER USER ####################
   async registerUser(context, payload) {
@@ -104,7 +107,6 @@ export default {
     let userName = payload.userName;
     let userEmail = payload.userEmail;
     let token = payload.token;
-    console.log("token: ", token)
 
     //send the user name to database and add to the users array
     const response = await fetch(`https://rainbow-task-default-rtdb.asia-southeast1.firebasedatabase.app/users.json?auth=${token}`, {
