@@ -9,12 +9,10 @@
         <label for="receiver">Send a message to:</label>
         <select name="receiver" id="receiver" v-model="messageReceiver">
           <option disabled value="">Select one ...</option>
-          <option value="diego">Diego</option>
-          <option value="lovely">Lovely</option>
-          <option value="jeanette">Jeanette</option>
-          <option value="shahin">Shahin</option>
-          <option value="meira">Meira</option>
-          <option value="all">All</option>
+          <option v-for="user in getAllUsers" 
+          :key="user.userName" 
+          :value="user.userName">{{user.userName}}</option>
+          
         </select>
       </div>
       <div class="form-control">
@@ -49,52 +47,62 @@ export default {
       messageReceiver: "",
       messageDate: "",
       formIsValid: true,
-      isFormVisible: false
+      isFormVisible: false,
     };
   },
+  created() {
+    this.loadAllUsers();
+  },
   methods: {
+    loadAllUsers() {
+      this.$store.dispatch("messages/fetchAllUsers");
+    },
     toggleForm() {
-        this.isFormVisible = !this.isFormVisible;
+      this.isFormVisible = !this.isFormVisible;
     },
     createMessage() {
-            //validate form to avoid bugs
-            this.formIsValid = true;
+      //validate form to avoid bugs
+      this.formIsValid = true;
 
-            //validating form
-            if (
-              this.messageContent === "" ||
-              this.messageTitle === "" ||
-              this.messageReceiver === ""
-            ) {
-              this.formIsValid = false;
-              return;
-            }
+      //validating form
+      if (
+        this.messageContent === "" ||
+        this.messageTitle === "" ||
+        this.messageReceiver === ""
+      ) {
+        this.formIsValid = false;
+        return;
+      }
 
-            //creating and assigning date
-            let currentDate = new Date();
-            this.messageDate = currentDate.getDate() + "/" + currentDate.getMonth() + "/" + currentDate.getFullYear();
+      //creating and assigning date
+      let currentDate = new Date();
+      this.messageDate =
+        currentDate.getDate() +
+        "/" +
+        currentDate.getMonth() +
+        "/" +
+        currentDate.getFullYear();
 
-            //close form
-            this.isFormVisible = false;
+      //close form
+      this.isFormVisible = false;
 
+      const newMessage = {
+        date: this.messageDate,
+        content: this.messageContent,
+        title: this.messageTitle,
+        receiver: this.messageReceiver,
+        author: this.getUserName,
+      };
 
-            const newMessage = {
-              date: this.messageDate,
-              content: this.messageContent,
-              title: this.messageTitle,
-              receiver: this.messageReceiver,
-              author: this.getUserName
-            };
-
-            this.$store.dispatch('messages/addMessage', newMessage);
-            this.$emit('messageSent');
-          },
+      this.$store.dispatch("messages/addMessage", newMessage);
+      this.$emit("messageSent");
+    },
   },
   computed: {
-    getUserName() {
-        return this.$store.getters.getUserName;
-      }
-  }
+    getAllUsers() {
+      return this.$store.getters["messages/getAllUsers"];
+    },
+  },
 };
 </script>
 

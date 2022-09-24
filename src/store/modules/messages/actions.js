@@ -60,5 +60,33 @@ export default {
         } //end of for loop
 
         context.commit('setMessagesList', messages);
-    }    
+    },
+    async fetchAllUsers(context) {
+        //grab the token
+        const token = context.rootGetters.token;
+  
+        //fetch all users from database
+        const response = await fetch(`https://rainbow-task-default-rtdb.asia-southeast1.firebasedatabase.app/users.json?auth=${token}`);
+  
+        //receive the data from database
+        const responseData = await response.json();
+  
+        //checking for errors
+        if(!response.ok) {
+          const error = new Error(responseData.message || "Something went wrong.");
+          throw error;
+        }
+  
+        //create an empty array
+        const users = [];
+  
+        //pushing the users into the array
+        for (const name in responseData) {
+          users.push({userName: responseData[name].userName});
+        }
+  
+        console.log(users);
+        context.commit("setAllUsers", users);
+  
+      }    
 }
