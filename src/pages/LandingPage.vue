@@ -1,5 +1,4 @@
 <template>
-{{isLoggedIn}}
 <auth-log v-if="!isLoggedIn"></auth-log>
   <base-card v-if="isLoggedIn">
   <h1>Welcome, {{ userName }}.</h1>
