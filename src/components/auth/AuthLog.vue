@@ -1,6 +1,6 @@
 <template>
   <base-card>
-    <form @submit.prevent="logIn" v-if="!isLogIn">
+    <form @submit.prevent="logIn">
       <div class="form-control">
         <h2>Login</h2>
         <label for="email">Email</label>
@@ -56,7 +56,7 @@ export default {
         this.error = err.message || "Failed to authenticate.";
       }
 
-      this.isLogIn = true;
+      this.$store.dispatch("toggleLoggedIn");
     },
   },
 };

@@ -6,8 +6,9 @@ export default {
     state() {
         return {
             userId: 1,
-            userName: "sem nome",
-            token: "this is a dummy token"
+            userName: "",
+            token: "this is a dummy token",
+            isLoggedIn: false
         }
     },
     mutations: authMutations,

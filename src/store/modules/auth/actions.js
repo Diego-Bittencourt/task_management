@@ -1,4 +1,8 @@
 export default {
+  //####### toggle logged in status
+  toggleLoggedIn(context) {
+    context.commit('changeLoggedStatus');
+  },
   // ######### LOGIN USER #########
   async logIn(context, payload) {
     //setting the login API url

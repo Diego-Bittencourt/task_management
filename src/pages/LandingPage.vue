@@ -1,6 +1,7 @@
 <template>
-<auth-log></auth-log>
-  <base-card>
+{{isLoggedIn}}
+<auth-log v-if="!isLoggedIn"></auth-log>
+  <base-card v-if="isLoggedIn">
   <h1>Welcome, {{ userName }}.</h1>
   <p>
     This is the task platform to enhance the communication with the school
@@ -21,6 +22,9 @@ export default {
       return this.$store.getters.getUserName;
       // return "isso"
     },
+    isLoggedIn() {
+      return this.$store.getters.isLoggedIn;
+    }
   },
 };
 </script>

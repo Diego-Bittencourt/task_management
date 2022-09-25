@@ -5,5 +5,8 @@ export default {
     },
     setUserName(state, payload) {
         state.userName = payload.userName;
+    },
+    changeLoggedStatus(state) {
+        state.isLoggedIn = !state.isLoggedIn;
     }
 }
