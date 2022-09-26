@@ -24,7 +24,7 @@
       </div>
       
     </form>
-  </base-card>
+ </base-card>
 </template>
 
 

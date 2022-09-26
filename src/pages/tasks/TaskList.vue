@@ -1,4 +1,5 @@
 <template>
+<div>
   <base-card>
     <div class="btnwrapper">
       <base-button @click="openTaskForm" v-if="!isFormVisible"
@@ -32,6 +33,7 @@
       @getTasks="loadTasks"
     ></task-item>
   </ul>
+  </div>
 </template>
 
 <script>
