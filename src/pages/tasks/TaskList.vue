@@ -2,15 +2,21 @@
 <div>
   <base-card>
     <div class="btnwrapper">
+<transition name="btnblock">
       <base-button @click="openTaskForm" v-if="!isFormVisible"
         >Create Task</base-button
       >
+      </transition>
+<transition>
       <base-button @click="openTaskFilter" v-if="!isFilterVisible"
         >Filter Tasks</base-button
       >
+      </transition>
+      <transition>
       <base-button @click="closeAll" v-if="isFilterVisible || isFormVisible"
         >Close</base-button
       >
+      </transition>
     </div>
     <task-form @reloadTasks="loadTasks" v-if="isFormVisible"></task-form>
     <task-filter
@@ -21,6 +27,7 @@
   <base-card v-if="!iTaskEmpty">Sorry, no tasks to show according your filters</base-card>
   <h1 v-if="isLoading">Loading...</h1>
   <ul v-else>
+    <transition-group name="tasklist" tag="ul">
     <task-item
       v-for="task in filteredTasks"
       :key="task.id"
@@ -32,6 +39,7 @@
       :taskstatus="task.taskStatus"
       @getTasks="loadTasks"
     ></task-item>
+    </transition-group>
   </ul>
   </div>
 </template>
@@ -135,5 +143,48 @@ li {
 .btnwrapper {
   display: flex;
   justify-content: space-around;
+}
+
+.tasklist-enter-from {
+  opacity: 0;
+  transform: translateX(-20px);
+}
+
+.tasklist-enter-to,
+.tasklist-leave-from {
+  opacity: 1;
+  transform: translateX(0px);
+}
+
+.trasklist-move,
+.tasklist-enter-active {
+  transition: 0.2s all ease-in;
+}
+
+.tasklist-leave-to {
+  opacity: 0;
+  transform: transitionX(20px);
+}
+
+.tasklist-leave-active {
+  transition: 0.4s all ease-out;
+}
+
+.btnblock-enter-from,
+.btnblock-leave-to {
+  opacity: 0;
+
+}
+
+.btnblock-enter-to,
+.btn-leave-from
+ {
+  opacity: 1;
+}
+
+.btnblock-enter-active,
+.btnblock-leave-active
+{
+  transition: 0.2s all ease-in-out;
 }
 </style>

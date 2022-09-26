@@ -4,6 +4,7 @@
   <base-card v-if="!iMessagesListEmpty">Sorry, no messages to show.</base-card>
   <h1 v-if="isLoading">Loading...</h1>
   <ul v-if="!isLoading">
+    <transition-group name="msglist" tag="ul">
     <message-item
       v-for="message in getMessages"
       :key="message.id"
@@ -12,6 +13,7 @@
       :date="message.messageDate"
       :title="message.messageTitle"
     ></message-item>
+    </transition-group>
   </ul>
   </div>
 </template>
@@ -67,5 +69,29 @@ ul,
 li {
   text-indent: 0;
   list-style-type: none;
+}
+
+.msglist-enter-from {
+  opacity: 0;
+  transform: translateX(-20px);
+}
+
+.msglist-enter-to,
+.msglist-leave-from {
+  opacity: 1;
+  transform: translateX(0px);
+}
+
+.msglist-enter-active {
+  transition: 0.2s all ease-in;
+}
+
+.msglist-leave-to {
+  opacity: 0;
+  transform: transitionX(20px);
+}
+
+.msglist-leave-active {
+  transition: 0.2s all ease-out;
 }
 </style>
