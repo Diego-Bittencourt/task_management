@@ -97,4 +97,8 @@ p {
   margin-top: 2rem;
   text-align: right;
 }
+
+.taskdata {
+  height: 7rem;
+}
 </style>

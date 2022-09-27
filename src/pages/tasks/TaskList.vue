@@ -1,6 +1,5 @@
 <template>
   <div>
-    {{ filteredTasks }}
     <base-card>
       <div class="btnwrapper">
         <base-button @click="openTaskForm" v-if="!isFormVisible"
