@@ -104,6 +104,9 @@ export default {
     getAllUsers() {
       return this.$store.getters["messages/getAllUsers"];
     },
+    getUserName() {
+      return this.$store.getters.getUserName;
+    }
   },
 };
 </script>

@@ -1,8 +1,9 @@
 <template>
   <li>
     <base-card>
-      <div class="msgdata"><h2>From: {{ sender }}</h2>
-      <h2>Title: {{ title }}</h2>
+      <div class="msgdata">
+        <h2>From: {{ sender }}</h2>
+        <h2>Title: {{ title }}</h2>
       </div>
       <p>{{ msgcontent }}</p>
       <p class="msgdate">Send on {{ date }}</p>
@@ -24,10 +25,19 @@ export default {
   margin-bottom: 2rem;
 }
 
+.msgdata h2 {
+  min-width: 35%;
+}
+
 .msgdate {
   color: #999;
   font-size: 1.2rem;
   margin-top: 2rem;
   text-align: right;
+}
+
+h2,
+p {
+  overflow: hidden;
 }
 </style>
