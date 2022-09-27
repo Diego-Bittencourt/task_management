@@ -1,46 +1,45 @@
 <template>
-<div>
-  <base-card>
-    <div class="btnwrapper">
-<transition name="btnblock">
-      <base-button @click="openTaskForm" v-if="!isFormVisible"
-        >Create Task</base-button
-      >
-      </transition>
-<transition>
-      <base-button @click="openTaskFilter" v-if="!isFilterVisible"
-        >Filter Tasks</base-button
-      >
-      </transition>
-      <transition>
-      <base-button @click="closeAll" v-if="isFilterVisible || isFormVisible"
-        >Close</base-button
-      >
-      </transition>
-    </div>
-    <task-form @reloadTasks="loadTasks" v-if="isFormVisible"></task-form>
-    <task-filter
-      v-if="isFilterVisible"
-      @change-filter="setFilters"
-    ></task-filter>
-  </base-card>
-  <base-card v-if="!iTaskEmpty">Sorry, no tasks to show according your filters</base-card>
-  <h1 v-if="isLoading">Loading...</h1>
-  <ul v-else>
-    <transition-group name="tasklist" tag="ul">
-    <task-item
-      v-for="task in filteredTasks"
-      :key="task.id"
-      :taskId="task.id"
-      :taskcontent="task.taskContent"
-      :tasksender="task.taskAuthor"
-      :tasktags="task.taskTopic"
-      :taskdate="task.taskDate"
-      :taskstatus="task.taskStatus"
-      @getTasks="loadTasks"
-    ></task-item>
-    </transition-group>
-  </ul>
+  <div>
+    {{ filteredTasks }}
+    <base-card>
+      <div class="btnwrapper">
+        <base-button @click="openTaskForm" v-if="!isFormVisible"
+          >Create Task</base-button
+        >
+
+        <base-button @click="openTaskFilter" v-if="!isFilterVisible"
+          >Filter Tasks</base-button
+        >
+
+        <base-button @click="closeAll" v-if="isFilterVisible || isFormVisible"
+          >Close</base-button
+        >
+      </div>
+      <task-form @reloadTasks="loadTasks" v-if="isFormVisible"></task-form>
+      <task-filter
+        v-if="isFilterVisible"
+        @change-filter="setFilters"
+      ></task-filter>
+    </base-card>
+    <base-card v-if="!iTaskEmpty"
+      >Sorry, no tasks to show according your filters</base-card
+    >
+    <h1 v-if="isLoading">Loading...</h1>
+    <ul v-else>
+      <!-- <transition-group name="tasklist" tag="ul"> -->
+      <task-item
+        v-for="task in filteredTasks"
+        :key="task.id"
+        :taskId="task.id"
+        :taskcontent="task.taskContent"
+        :tasksender="task.taskAuthor"
+        :tasktags="task.taskTopic"
+        :taskdate="task.taskDate"
+        :taskstatus="task.taskStatus"
+        @getTasks="loadTasks"
+      ></task-item>
+      <!-- </transition-group> -->
+    </ul>
   </div>
 </template>
 
@@ -69,15 +68,17 @@ export default {
         schedule: true,
         trial: true,
       },
+      allTasks: [],
     };
   },
+
   computed: {
     tasks() {
       return this.$store.getters["tasks/getTasks"];
     },
     filteredTasks() {
       //getting the task from firebase
-      const tasks = this.$store.getters["tasks/getTasks"];
+      const tasks = this.tasks;
 
       //return an array with the filtered array containing the true keys
       return tasks.filter((task) => {
@@ -98,7 +99,7 @@ export default {
     },
     iTaskEmpty() {
       return Object.keys(this.filteredTasks).length;
-    }
+    },
   },
   created() {
     this.loadTasks();
@@ -173,18 +174,15 @@ li {
 .btnblock-enter-from,
 .btnblock-leave-to {
   opacity: 0;
-
 }
 
 .btnblock-enter-to,
-.btn-leave-from
- {
+.btn-leave-from {
   opacity: 1;
 }
 
 .btnblock-enter-active,
-.btnblock-leave-active
-{
+.btnblock-leave-active {
   transition: 0.2s all ease-in-out;
 }
 </style>
