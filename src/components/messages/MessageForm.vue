@@ -4,6 +4,7 @@
       <span v-if="!isFormVisible">Send Message</span>
       <span v-else>Close</span>
     </base-button>
+    <transition name="msgform">
     <form @submit.prevent="createMessage" v-if="isFormVisible">
       <div class="form-control">
         <label for="receiver">Send a message to:</label>
@@ -35,6 +36,7 @@
         <base-button simplebutton>Submit</base-button>
       </div>
     </form>
+    </transition>
   </base-card>
 </template>
 
@@ -107,6 +109,24 @@ export default {
 </script>
 
 <style scoped>
+.msgform-enter-from,
+.msgform-leave-to {
+  transform: translateY(-30px);
+  opacity: 0;
+}
+
+.msgform-enter-to,
+.msgform-leave_from {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.msgform-leave-active,
+.msgform-enter-active {
+  transition: 0.4s all ease-in-out;
+}
+
+
 button {
   margin: 0 auto;
 }
