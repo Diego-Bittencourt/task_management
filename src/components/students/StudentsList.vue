@@ -1,6 +1,5 @@
 <template>
   <base-card>
-    {{ getStudentsList }}
     <table class="table">
       <thead>
         <tr>
@@ -11,11 +10,11 @@
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td>Someone</td>
-          <td>something@server.com</td>
-          <td>0000000000</td>
-          <td>Sunday, 9AM</td>
+        <tr v-for="student in getStudentsList" :key="student.id">
+          <td>{{student.studentName}}</td>
+          <td>{{student.studentEmail}}</td>
+          <td>{{student.studentPhone}}</td>
+          <td>{{student.studentClass}}</td>
         </tr>
       </tbody>
     </table>

@@ -48,7 +48,6 @@ export default {
             }
             studentsList.push(student);
         } // end of the for loop
-        console.log(studentsList);
         context.commit('setStudentsList', studentsList);
     }
 }
