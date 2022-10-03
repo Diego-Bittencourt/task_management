@@ -5,6 +5,7 @@
             <ul>
                 <base-button to="/tasklist" link><li><h1>Tasks</h1></li></base-button>
                 <base-button to="/messages" link><li><h1>Messages</h1></li></base-button>
+                <base-button to="/students" link><li><h1>Students</h1></li></base-button>
             </ul>
         </nav>
     </header>
