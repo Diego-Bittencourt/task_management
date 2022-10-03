@@ -21,8 +21,34 @@ export default {
               throw error;
         }
     },
-    fetchStudents (context) {
-        console.log(context)
+    async fetchStudentsList (context) {
+        //grab the token
+        const token = context.rootGetters.token;
 
+
+        const studentsList = [];
+
+        const response = await fetch(`https://rainbow-task-default-rtdb.asia-southeast1.firebasedatabase.app/students.json?auth=${token}`);
+
+        const responseData = await response.json();
+
+        if (!response.ok) {
+            const error = new Error(responseData.message || 'Failed to send request');
+              throw error;
+        }
+        
+        for (const key in responseData) {
+            const student = {
+                id: key,
+                studentName: responseData[key].studentName,
+                studentEmail: responseData[key].studentEmail,
+                studentPhone: responseData[key].studentPhone,
+                studentClass: responseData[key].studentClass
+
+            }
+            studentsList.push(student);
+        } // end of the for loop
+        console.log(studentsList);
+        context.commit('setStudentsList', studentsList);
     }
 }
