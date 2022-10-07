@@ -15,8 +15,20 @@
       <input type="phone" v-model.trim="studentPhone" />
     </div>
     <div class="form-control">
-      <label for="class">Class - Day, Time</label>
-      <input type="text" v-model.trim="studentClass" />
+      <label for="classday">Class - Day</label>
+      <select name="classday" id="classday" v-model="studentClassDay">
+        <option name="sunday">Sunday</option>
+        <option name="monday">Monday</option>
+        <option name="tuesday">Tuesday</option>
+        <option name="wednesday">Wednesday</option>
+        <option name="thursday">Thursday</option>
+        <option name="friday">Friday</option>
+        <option name="saturday">Saturday</option>
+      </select>
+      </div>
+    <div class="form-control">
+      <label for="class">Class - Time</label>
+      <input type="time" v-model.trim="studentClassTime" />
     </div>
     <base-button>Submit</base-button>
   </form>
@@ -30,7 +42,8 @@ export default {
             studentName: "",
             studentEmail: "",
             studentPhone: "",
-            studentClass: "",
+            studentClassTime: "",
+            studentClassDay: "",
             isFormValid: true
         }
     },
@@ -42,7 +55,8 @@ export default {
             if (this.studentName === "" || 
                 this.studentEmail === "" ||
                 this.studentPhone === "" ||
-                this.studentClass === "") {
+                this.studentClassTime === "" ||
+                this.studentClassDay === "") {
                     this.isFormValid = false;
                     return
                 }
@@ -51,7 +65,7 @@ export default {
                 studentName: this.studentName,
                 studentEmail: this.studentEmail,
                 studentPhone: this.studentPhone,
-                studentClass: this.studentClass
+                studentClass: this.studentClassDay + ", " + this.studentClassTime
             }
 
             this.$store.dispatch("students/addStudent", newStudent);
