@@ -35,7 +35,8 @@ const router = createRouter({
         },
         {
             path: '/register',
-            component: RegisterUser
+            component: RegisterUser,
+            meta: { isSignUpAvailable: true }
         },
         {
             path: '/messages',
@@ -54,6 +55,8 @@ const router = createRouter({
 router.beforeEach(function(to, from, next) {
     if(to.meta.requiresAuth && !store.getters.isLoggedIn) {
         next('/');
+    } else if (to.meta.isSignUpAvailable && !store.getters.getSignUp) {
+        next('/notfound');
     } else {
         next();
     }

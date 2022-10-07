@@ -1,6 +1,5 @@
 <template>
 <base-card>
-{{isSignUpAvailable}}
 <auth-log v-if="!isLoggedIn"></auth-log>
   <div v-if="isLoggedIn">
   <h1>Welcome, {{ userName }}.</h1>
