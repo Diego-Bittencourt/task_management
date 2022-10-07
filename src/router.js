@@ -9,8 +9,8 @@ import StudentsInfo from './pages/students/StudentsInfo.vue';
 import StudentsList from './components/students/StudentsList.vue';
 import AddStudent from './components/students/AddStudent.vue';
 
-
-// import store from './store/index.js';
+//import the store to use on the navigation guards
+import store from './store/index.js';
 
 const router = createRouter({
     history: createWebHistory(),
@@ -22,6 +22,7 @@ const router = createRouter({
         {
             path: '/students',
             component: StudentsInfo,
+            meta: { requiresAuth: true },
             children: [
                 { path: 'list', component: StudentsList },
                 { path: 'addstudent', component: AddStudent }
@@ -29,11 +30,8 @@ const router = createRouter({
         },
         {
             path: '/tasklist',
-            component: TaskList
-        },
-        {
-            path: '/:notFound(.*)',
-            component: NotFound
+            component: TaskList,
+            meta: { requiresAuth: true }
         },
         {
             path: '/register',
@@ -41,10 +39,26 @@ const router = createRouter({
         },
         {
             path: '/messages',
-            component: MessagePage
+            component: MessagePage,
+            meta: { requiresAuth: true }
+        },
+        {
+            path: '/:notFound(.*)',
+            component: NotFound
         }
     ]
 });
+
+
+//add navigation guards
+router.beforeEach(function(to, from, next) {
+    if(to.meta.requiresAuth && !store.getters.isLoggedIn) {
+        next('/');
+    } else {
+        next();
+    }
+})
+
 
 
 export default router;
