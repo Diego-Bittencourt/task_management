@@ -8,5 +8,8 @@ export default {
     },
     changeLoggedStatus(state) {
         state.isLoggedIn = !state.isLoggedIn;
+    },
+    setSignUp(state, payload) {
+        state.isSignUpAvailable = payload;
     }
 }

@@ -13,5 +13,8 @@ export default {
     },
     isLoggedIn(state) {
         return state.isLoggedIn;
+    },
+    getSignUp(state) {
+        return state.isSignUpAvailable;
     }
 }

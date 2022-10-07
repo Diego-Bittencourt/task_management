@@ -40,6 +40,11 @@ export default {
       error: null,
     };
   },
+  computed: {
+    isSignUpAvailable() {
+      return this.$store.getters.getSignUp;
+    }
+  },
   methods: {
     async registerUser() {
       this.formIsValid = true;

@@ -8,7 +8,8 @@ export default {
             userId: 1,
             userName: "",
             token: "this is a dummy token",
-            isLoggedIn: false
+            isLoggedIn: false,
+            isSignUpAvailable: false
         }
     },
     mutations: authMutations,

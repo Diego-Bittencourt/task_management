@@ -134,6 +134,29 @@ export default {
 
     context.commit("setUserName", payload.userName);
 
-  }
+  },
+
+  //######### fetch is sign up is available #########
+  async fetchSignUp(context) {
+  
+
+    // get method to fetch the users data
+    const response = await fetch(`https://rainbow-task-default-rtdb.asia-southeast1.firebasedatabase.app/isSignUpAvailable.json`);
+
+    //grab the response from the database
+    const responseData = await response.json();
+
+    //checking for errors
+    if (!response.ok) {
+      const error = new Error(responseData.message || "Failed to access the database");
+      throw error;
+    }
+
+    let signUpStatus = responseData;
+    
+    context.commit('setSignUp', signUpStatus);
+
+   
+  },
   
 };
