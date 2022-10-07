@@ -51,6 +51,7 @@ h1 {
   max-width: 100%;
   margin-bottom: 1rem;
   border: 1px solid #909090;
+  border-collapse: collapse;
 }
 th,
 td {

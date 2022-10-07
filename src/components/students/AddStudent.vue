@@ -55,6 +55,7 @@ export default {
             }
 
             this.$store.dispatch("students/addStudent", newStudent);
+            this.$router.push('/students/list');
         }
     }
 }
