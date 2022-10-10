@@ -69,4 +69,10 @@ input {
   width: 100%;
   margin-bottom: 1rem;
 }
+
+label {
+  font-weight: bold;
+  font-size: 1.8rem;
+  margin-left: 0;
+}
 </style>
