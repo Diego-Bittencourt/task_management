@@ -1,5 +1,7 @@
 <template>
   <base-card>
+  <label for="filtername">Search for student</label>
+  <input type="text" v-model.trim="filterstudent">
     <table class="table">
       <thead>
         <tr>
@@ -24,7 +26,9 @@
 <script>
 export default {
   data() {
-    return {};
+    return {
+      filterstudent: ""
+    };
   },
   computed: {
     getStudentsList() {
@@ -52,10 +56,17 @@ h1 {
   margin-bottom: 1rem;
   border: 1px solid #909090;
   border-collapse: collapse;
+  margin-top: 2rem;
 }
 th,
 td {
   border: 1px solid #909090;
   padding: 0.1rem 1rem;
+}
+
+label,
+input {
+  width: 100%;
+  margin-bottom: 1rem;
 }
 </style>
