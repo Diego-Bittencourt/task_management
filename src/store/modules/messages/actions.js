@@ -85,7 +85,6 @@ export default {
           users.push({userName: responseData[name].userName});
         }
   
-        console.log(users);
         context.commit("setAllUsers", users);
   
       }    

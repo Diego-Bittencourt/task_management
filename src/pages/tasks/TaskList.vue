@@ -20,7 +20,7 @@
         @change-filter="setFilters"
       ></task-filter>
     </base-card>
-    <base-card v-if="!iTaskEmpty"
+    <base-card v-if="!iTaskEmpty && !isLoading"
       >Sorry, no tasks to show according your filters</base-card
     >
     <h1 v-if="isLoading">Loading...</h1>

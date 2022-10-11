@@ -87,4 +87,20 @@ input:focus {
   border-color: #0000ff77;
   outline: none;
 }
+
+@media screen and (max-width: 500px) {
+  th,
+  td {
+    padding: 0.1rem;
+    font-size: 1.2rem;
+  }
+}
+
+@media screen and (max-width: 350px) {
+  th,
+  td {
+    padding: 0.1rem;
+    font-size: 1rem;
+  }
+}
 </style>

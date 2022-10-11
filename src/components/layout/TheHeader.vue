@@ -54,4 +54,17 @@ ul {
     max-width: 400px;
     justify-self: flex-end;
 }
+
+@media screen and (max-width: 500px) {
+  nav {
+    width: 95%;
+    flex-wrap: wrap;
+  }
+
+  img {
+    margin: 1rem auto;
+    width: 100px;
+  }
+  
+}
 </style>

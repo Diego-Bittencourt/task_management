@@ -56,4 +56,13 @@ a:hover {
   border-color: #06013f;
   background-color: #999;
 }
+
+@media screen and (max-width: 500px) {
+  button,
+  a {
+    font-size: 1.2rem;
+    padding: 0.2rem;
+    min-width: 50px;
+  }
+}
 </style>

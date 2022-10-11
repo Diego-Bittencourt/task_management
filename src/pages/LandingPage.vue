@@ -7,6 +7,7 @@
     This is the task platform to enhance the communication with the school
     staff.
   </p>
+  <p>Thank you for your time and effort. If there is anything we can help, send a message to Diego.</p>
   </div>
   </base-card>
   
@@ -40,3 +41,11 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+p {
+  margin: 2rem auto;
+  text-align: justify;
+}
+
+</style>
