@@ -12,7 +12,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="student in getStudentsList" :key="student.id">
+        <tr v-for="student in filteredStudentList" :key="student.id">
           <td>{{student.studentName}}</td>
           <td>{{student.studentEmail}}</td>
           <td>{{student.studentPhone}}</td>
@@ -34,6 +34,12 @@ export default {
     getStudentsList() {
       return this.$store.getters["students/getStudentsList"];
     },
+    filteredStudentList() {
+      const students = this.getStudentsList;
+      const filter = this.filterstudent;
+
+      return students.filter(elem => elem.studentName.toLowerCase().includes(filter.toLowerCase()));
+    }
   },
   created() {
     this.fetchStudents();
