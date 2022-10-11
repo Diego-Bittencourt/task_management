@@ -67,12 +67,18 @@ td {
 label,
 input {
   width: 100%;
-  margin-bottom: 1rem;
+  margin: 2rem auto;
 }
 
 label {
   font-weight: bold;
   font-size: 1.8rem;
   margin-left: 0;
+}
+
+input:focus {
+  background-color: lightblue;
+  border-color: #0000ff77;
+  outline: none;
 }
 </style>
