@@ -74,7 +74,8 @@ export default {
         this.error = err.message || "Failed to authenticate.";
       }
 
-      this.isLogIn = true;
+      this.$store.dispatch("toggleLoggedIn");
+      this.$router.push("/");
     },
   },
 };

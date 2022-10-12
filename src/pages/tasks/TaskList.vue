@@ -128,6 +128,7 @@ export default {
         this.error = error.message || "Something went wrong";
       } // end of the catch
       this.isLoading = false;
+      this.$router.push("/tasklist");
     },
   },
 };

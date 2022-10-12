@@ -75,6 +75,7 @@ export default {
 
       this.$store.dispatch("tasks/addTask", newTask);
       this.$emit("reloadTasks");
+      
     },
     toggleTaskForm() {
       this.isFormVisible = !this.isFormVisible;

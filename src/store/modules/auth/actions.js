@@ -101,11 +101,16 @@ export default {
       token: responseData.idToken,
       userId: responseData.localId,
     });
+    console.log(responseData)
 
     context.dispatch("addUserName", {
       userName: payload.userName,
       userEmail: payload.userEmail,
       token: responseData.idToken
+    })
+    
+    context.dispatch("fetchUserName", {
+      userEmail: payload.userEmail
     })
   },
   //############# ADD USER NAME ###########################
