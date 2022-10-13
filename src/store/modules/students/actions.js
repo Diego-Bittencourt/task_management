@@ -7,7 +7,7 @@ export default {
         const newStudent = payload;
 
         //send a post request to the server
-        const response = await fetch(`https://rainbow-task-default-rtdb.asia-southeast1.firebasedatabase.app/students.json?auth=${token}`,
+        const response = await fetch(`https://management-rainbow-default-rtdb.asia-southeast1.firebasedatabase.app/students.json?auth=${token}`,
                         {
                             method: "POST",
                             body: JSON.stringify(newStudent)
@@ -28,7 +28,7 @@ export default {
 
         const studentsList = [];
 
-        const response = await fetch(`https://rainbow-task-default-rtdb.asia-southeast1.firebasedatabase.app/students.json?auth=${token}`);
+        const response = await fetch(`https://management-rainbow-default-rtdb.asia-southeast1.firebasedatabase.app/students.json?auth=${token}`);
 
         const responseData = await response.json();
 

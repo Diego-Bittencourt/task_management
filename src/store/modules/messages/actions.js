@@ -8,7 +8,7 @@ export default {
         const newMessage = payload;
     
         //create the post
-        const response = await fetch(`https://rainbow-task-default-rtdb.asia-southeast1.firebasedatabase.app/messages/${payload.receiver}.json?auth=${token}`,
+        const response = await fetch(`https://management-rainbow-default-rtdb.asia-southeast1.firebasedatabase.app/messages/${payload.receiver}.json?auth=${token}`,
             {
                 method: "POST",
                 body: JSON.stringify(newMessage)
@@ -21,9 +21,9 @@ export default {
             const error = new Error(responseData.message || 'Failed to send request');
               throw error;
         }
+
     },
     async getMessages(context, payload) {
-
         //grab the token
         const token = context.rootGetters.token;
 
@@ -31,7 +31,7 @@ export default {
         let userName = payload;
 
         //create the fetch
-        const response = await fetch(`https://rainbow-task-default-rtdb.asia-southeast1.firebasedatabase.app/messages/${userName}.json?auth=${token}`);
+        const response = await fetch(`https://management-rainbow-default-rtdb.asia-southeast1.firebasedatabase.app/messages/${userName}.json?auth=${token}`);
 
         //accessing the fetched data's response
         const responseData = await response.json();
@@ -66,7 +66,7 @@ export default {
         const token = context.rootGetters.token;
   
         //fetch all users from database
-        const response = await fetch(`https://rainbow-task-default-rtdb.asia-southeast1.firebasedatabase.app/users.json?auth=${token}`);
+        const response = await fetch(`https://management-rainbow-default-rtdb.asia-southeast1.firebasedatabase.app/users.json?auth=${token}`);
   
         //receive the data from database
         const responseData = await response.json();

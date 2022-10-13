@@ -56,13 +56,18 @@ export default {
     this.loadAllUsers();
   },
   methods: {
+    resetForm() {
+      this.messageContent = "";
+      this.messageTitle = "";
+      this.messageReceiver = "";
+    },
     loadAllUsers() {
       this.$store.dispatch("messages/fetchAllUsers");
     },
     toggleForm() {
       this.isFormVisible = !this.isFormVisible;
     },
-    createMessage() {
+    async createMessage() {
       //validate form to avoid bugs
       this.formIsValid = true;
 
@@ -96,8 +101,9 @@ export default {
         author: this.getUserName,
       };
 
-      this.$store.dispatch("messages/addMessage", newMessage);
-      this.$emit("messageSent");
+     await this.$store.dispatch("messages/addMessage", newMessage);
+     this.$emit("messageSent");
+     this.resetForm();
     },
   },
   computed: {
