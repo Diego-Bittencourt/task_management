@@ -25,6 +25,7 @@
       </div>
       <p class="taskdate">Date: {{ taskdate }}</p>
       <p class="showmsg" @click="toggleMsg"><span v-if="!isMsgvisible">See Comments</span><span v-else>Hide Comments</span></p>
+      <div class="msgwrapper"></div>
     </base-card>
   </li>
 </template>
@@ -104,5 +105,16 @@ p {
 
 .taskdata {
   height: 7rem;
+}
+
+.showmsg {
+  transition: 0.3s all ease-in;
+  border-radius: 15px;
+  cursor: default;
+}
+
+.showmsg:hover {
+  background-color: #ccc;
+  font-weight: 700;
 }
 </style>
