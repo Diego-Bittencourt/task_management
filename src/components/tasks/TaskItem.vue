@@ -24,6 +24,7 @@
         </div>
       </div>
       <p class="taskdate">Date: {{ taskdate }}</p>
+      <p class="showmsg" @click="toggleMsg"><span v-if="!isMsgvisible">See Comments</span><span v-else>Hide Comments</span></p>
     </base-card>
   </li>
 </template>
@@ -45,7 +46,7 @@ export default {
       dialogTitle: "Confirm change status to " + this.setStatus,
       setStatus: "",
       error: null,
-      
+      isMsgvisible: false
     };
   },
   computed: {
@@ -57,6 +58,9 @@ export default {
     }
   },
   methods: {
+    toggleMsg() {
+      this.isMsgvisible = !this.isMsgvisible;
+    },
     async changeTaskStatus(status) {
       let task = {
         id: this.taskId,
