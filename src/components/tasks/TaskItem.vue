@@ -40,8 +40,8 @@
       </div>
       <div class="sendcomment">
         <label for="addtaskcomment">Write a comment</label>
-        <textarea id="addtaskcomment" class="commentinput" rows="3"></textarea>
-        <base-button>Comment</base-button>
+        <textarea id="addtaskcomment" class="commentinput" rows="3" v-model.trim="commentContent"></textarea>
+        <base-button @click="createComment">Comment</base-button>
         </div>
       </span>
     </base-card>
@@ -66,6 +66,7 @@ export default {
       setStatus: "",
       error: null,
       isMsgvisible: false,
+      commentContent: ""
     };
   },
   computed: {
@@ -83,6 +84,34 @@ export default {
     },
   },
   methods: {
+    async createComment() {
+      //grab the username
+      const commentUser = this.$store.getters["getUserName"];
+
+      //create a new date and assignt the date to a variable
+      let today = new Date();
+      let theMonth = today.getMonth() + 1;
+      const commentDate =   today.getDate() +
+        "/" +
+        theMonth +
+        "/" +
+        today.getFullYear();
+
+        //grab the task Id
+        const taskId = this.taskId;
+
+      //create an object to send via pyaload
+      const commentData = {
+        commentUser: commentUser,
+        commentContent: this.commentContent,
+        commentDate: commentDate,
+        taskId: taskId
+      };
+
+      await this.$store.dispatch("tasks/createNewComment", commentData);
+
+      this.commentContent = "";
+    },
     toggleMsg() {
       this.isMsgvisible = !this.isMsgvisible;
     },
