@@ -93,10 +93,10 @@ export default {
     console.log(payload, token, taskId);
     //create the fetch
     const response = await fetch(
-      `https://management-rainbow-default-rtdb.asia-southeast1.firebasedatabase.app/tasks/${taskId}.json?auth=${token}`,
+      `https://management-rainbow-default-rtdb.asia-southeast1.firebasedatabase.app/tasks/${taskId}/comments.json?auth=${token}`,
       {
       method: "POST",
-      body: payload
+      body: JSON.stringify(payload)
       }
     );
 
@@ -109,4 +109,37 @@ export default {
       throw error
     }
   },
+  async getComments(context, payload) {
+
+    //grab the token
+    const token = context.rootGetters.token;
+
+    //grab the task Id
+    const taskId = payload.taskId;
+
+    //fetch data from the task
+    const response = await fetch(
+      `https://management-rainbow-default-rtdb.asia-southeast1.firebasedatabase.app/tasks/${taskId}/comments.json?auth=${token}`
+    );
+
+    //accessing the fetched data's response
+    const responseData = await response.json();
+
+    //error handling
+    if (!response.ok) {
+      const error = new Error(responseData.message || "Failed to fecth");
+      throw error
+  }
+
+  console.log("fetched data", responseData)
+
+  // //create the payload object
+  // const taskComments = {
+  //   taskId: taskId,
+
+  // }
+
+  //   //set the data in the store
+  //   context.commit("setComments", taskComments)
+}
 };

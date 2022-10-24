@@ -84,6 +84,15 @@ export default {
     },
   },
   methods: {
+    async fetchComments() {
+
+      //create the payload object
+      const taskId = {
+        taskId: this.taskId
+      }
+
+      this.$store.dispatch("tasks/getComments", taskId);
+    },
     async createComment() {
       //grab the username
       const commentUser = this.$store.getters["getUserName"];
@@ -114,6 +123,9 @@ export default {
     },
     toggleMsg() {
       this.isMsgvisible = !this.isMsgvisible;
+      if (this.isMsgvisible === true) {
+        this.fetchComments();
+      }
     },
     async changeTaskStatus(status) {
       let task = {
