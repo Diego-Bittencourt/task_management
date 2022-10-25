@@ -1,6 +1,7 @@
 <template>
   <base-dialog :showDialog="!!changeStatus" :title="dialogTitle"></base-dialog>
   <li>
+    {{listOfComments}}
     <base-card>
       <h1>TASK: {{ taskcontent }}</h1>
       <div class="taskdata">
@@ -29,14 +30,14 @@
       <span v-if="isMsgvisible">
       <div
         class="msgwrapper"
-        v-for="comment in taskcomments"
+        v-for="comment in listOfComments"
         :key="comment.name"
         :name="comment.name"
         :comment="comment.comment"
         :date="comment.date"
       >
-        <p class="taskcomment"><span class="bold">{{comment.name}}:</span> {{comment.comment}}</p>
-        <p class="taskdate">Commented on: {{comment.date}}</p>
+        <p class="taskcomment"><span class="bold">{{comment.commentUser}}:</span> {{comment.commentContent}}</p>
+        <p class="taskdate">Commented on: {{comment.commentDate}}</p>
       </div>
       <div class="sendcomment">
         <label for="addtaskcomment">Write a comment</label>
@@ -70,6 +71,11 @@ export default {
     };
   },
   computed: {
+    listOfComments() {
+      const taskId = this.taskId;
+      const comments = this.$store.getters["tasks/getComments"];
+      return comments[taskId];
+    },
     taskcomments() {
       return [
         { name: "Joao", comment: "tralala", date: "01/02/2022" },

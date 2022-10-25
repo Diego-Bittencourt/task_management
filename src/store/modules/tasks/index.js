@@ -6,9 +6,8 @@ export default {
     namespaced: true,
     state() {
         return {
-            tasks: [
-                
-            ]
+            tasks: [],
+            comments: {}
         }
     },
     mutations: tasksMutations,

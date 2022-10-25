@@ -90,13 +90,19 @@ export default {
     //grab the task Id
     const taskId = payload.taskId;
 
-    console.log(payload, token, taskId);
+    //create the body object
+    const newComment = {
+      commentContent: payload.commentContent,
+      commentDate: payload.commentDate,
+      commentUser: payload.commentUser,
+    };
+
     //create the fetch
     const response = await fetch(
       `https://management-rainbow-default-rtdb.asia-southeast1.firebasedatabase.app/tasks/${taskId}/comments.json?auth=${token}`,
       {
-      method: "POST",
-      body: JSON.stringify(payload)
+        method: "POST",
+        body: JSON.stringify(newComment),
       }
     );
 
@@ -106,11 +112,10 @@ export default {
     //error handling
     if (!response.ok) {
       const error = new Error(responseData.message || "Failed to fecth");
-      throw error
+      throw error;
     }
   },
   async getComments(context, payload) {
-
     //grab the token
     const token = context.rootGetters.token;
 
@@ -128,18 +133,33 @@ export default {
     //error handling
     if (!response.ok) {
       const error = new Error(responseData.message || "Failed to fecth");
-      throw error
-  }
+      throw error;
+    }
 
-  console.log("fetched data", responseData)
+    // console.log("fetched data", responseData);
 
-  // //create the payload object
-  // const taskComments = {
-  //   taskId: taskId,
+    //create the object
+    const comments = [];
 
-  // }
+    //looping throught the fetched object
+    for(const key in responseData) {
+      const comment = {
+        commentContent: responseData[key].commentContent,
+        commentUser: responseData[key].commentUser,
+        commentDate: responseData[key].commentDate
+      }
+      comments.push(comment);
+    }
 
-  //   //set the data in the store
-  //   context.commit("setComments", taskComments)
-}
+
+    //create the payload object
+    const taskComments = {
+      taskId: taskId,
+      taskComments: comments
+    };
+
+
+    //set the data in the store
+    context.commit("setComments", taskComments);
+  },
 };
