@@ -1,7 +1,6 @@
 <template>
   <base-dialog :showDialog="!!changeStatus" :title="dialogTitle"></base-dialog>
   <li>
-    {{listOfComments}}
     <base-card>
       <h1>TASK: {{ taskcontent }}</h1>
       <div class="taskdata">
@@ -126,6 +125,7 @@ export default {
       await this.$store.dispatch("tasks/createNewComment", commentData);
 
       this.commentContent = "";
+      setTimeout(() => {this.fetchComments()}, 1000);
     },
     toggleMsg() {
       this.isMsgvisible = !this.isMsgvisible;
