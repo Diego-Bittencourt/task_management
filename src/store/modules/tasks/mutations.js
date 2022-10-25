@@ -3,7 +3,6 @@ export default {
         state.tasks = payload;
     },
     setComments(state, payload) {
-        console.log("mutation", payload.taskComments)
         //grab the task Id
         const taskId = payload.taskId;
 

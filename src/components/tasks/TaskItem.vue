@@ -26,24 +26,35 @@
         <span v-if="!isMsgvisible">🔽 See Comments 🔽</span>
         <span v-else>🔼 Hide Comments 🔼</span>
       </p>
-      <span v-if="isMsgvisible">
-      <div
-        class="msgwrapper"
-        v-for="comment in listOfComments"
-        :key="comment.name"
-        :name="comment.name"
-        :comment="comment.comment"
-        :date="comment.date"
-      >
-        <p class="taskcomment"><span class="bold">{{comment.commentUser}}:</span> {{comment.commentContent}}</p>
-        <p class="taskdate">Commented on: {{comment.commentDate}}</p>
-      </div>
-      <div class="sendcomment">
-        <label for="addtaskcomment">Write a comment</label>
-        <textarea id="addtaskcomment" class="commentinput" rows="3" v-model.trim="commentContent"></textarea>
-        <base-button @click="createComment">Comment</base-button>
-        </div>
-      </span>
+      <transition name="commentlist">
+        <span class="block" v-if="isMsgvisible">
+          <div
+            class="msgwrapper"
+            v-for="comment in listOfComments"
+            :key="comment.name"
+            :name="comment.name"
+            :comment="comment.comment"
+            :date="comment.date"
+          >
+            <p class="taskcomment">
+              <span class="bold">{{ comment.commentUser }}:</span>
+              {{ comment.commentContent }}
+            </p>
+            <p class="taskdate">Commented on: {{ comment.commentDate }}</p>
+          </div>
+
+          <div class="sendcomment">
+            <label for="addtaskcomment">Write a comment</label>
+            <textarea
+              id="addtaskcomment"
+              class="commentinput"
+              rows="3"
+              v-model.trim="commentContent"
+            ></textarea>
+            <base-button @click="createComment">Comment</base-button>
+          </div>
+        </span>
+      </transition>
     </base-card>
   </li>
 </template>
@@ -66,7 +77,7 @@ export default {
       setStatus: "",
       error: null,
       isMsgvisible: false,
-      commentContent: ""
+      commentContent: "",
     };
   },
   computed: {
@@ -90,11 +101,10 @@ export default {
   },
   methods: {
     async fetchComments() {
-
       //create the payload object
       const taskId = {
-        taskId: this.taskId
-      }
+        taskId: this.taskId,
+      };
 
       this.$store.dispatch("tasks/getComments", taskId);
     },
@@ -105,27 +115,26 @@ export default {
       //create a new date and assignt the date to a variable
       let today = new Date();
       let theMonth = today.getMonth() + 1;
-      const commentDate =   today.getDate() +
-        "/" +
-        theMonth +
-        "/" +
-        today.getFullYear();
+      const commentDate =
+        today.getDate() + "/" + theMonth + "/" + today.getFullYear();
 
-        //grab the task Id
-        const taskId = this.taskId;
+      //grab the task Id
+      const taskId = this.taskId;
 
       //create an object to send via pyaload
       const commentData = {
         commentUser: commentUser,
         commentContent: this.commentContent,
         commentDate: commentDate,
-        taskId: taskId
+        taskId: taskId,
       };
 
       await this.$store.dispatch("tasks/createNewComment", commentData);
 
       this.commentContent = "";
-      setTimeout(() => {this.fetchComments()}, 1000);
+      setTimeout(() => {
+        this.fetchComments();
+      }, 1000);
     },
     toggleMsg() {
       this.isMsgvisible = !this.isMsgvisible;
@@ -152,20 +161,41 @@ export default {
 </script>
 
 <style scoped>
+.block {
+  display: inline-block;
+  width: 100%;
+}
+
+.commentlist-enter-from,
+.commentlist-leave-to {
+  opacity: 0;
+  transform: translateY(-60px);
+}
+
+.commentlist-enter-to,
+.commentlist-leave-from {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.commentlist-enter-active,
+.commentlist-leave-active {
+  transition: all .5s ease-in-out;
+}
+
 .bold {
   font-weight: bold;
 }
 
 .commentinput:focus {
- outline: none;
- border-color: lightseagreen;
- background-color: rgba(114, 103, 184, 0.265);
+  outline: none;
+  border-color: lightseagreen;
+  background-color: rgba(114, 103, 184, 0.265);
 }
 
 .commentinput {
   resize: none;
   width: 100%;
-
 }
 
 .sendcomment {
