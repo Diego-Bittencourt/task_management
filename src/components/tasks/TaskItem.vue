@@ -23,8 +23,9 @@
       </div>
       <p class="taskdate">Date: {{ taskdate }}</p>
       <p class="showmsg" @click="toggleMsg">
-        <span v-if="!isMsgvisible">🔽 See Comments 🔽</span>
+        <span v-if="!isMsgvisible">🔽 See Comments ({{listLength}}) 🔽</span>
         <span v-else>🔼 Hide Comments 🔼</span>
+        
       </p>
       <transition name="commentlist">
         <span class="block" v-if="isMsgvisible">
@@ -86,6 +87,10 @@ export default {
       const comments = this.$store.getters["tasks/getComments"];
       return comments[taskId];
     },
+    listLength() {
+      const comments = this.listOfComments;
+      return Object.keys(comments).length;
+    },
     taskcomments() {
       return [
         { name: "Joao", comment: "tralala", date: "01/02/2022" },
@@ -99,13 +104,15 @@ export default {
       return this.tasktags.toUpperCase();
     },
   },
+  created() {
+    setTimeout(() => {this.fetchComments()}, 1000)
+  },
   methods: {
     async fetchComments() {
       //create the payload object
       const taskId = {
         taskId: this.taskId,
       };
-
       this.$store.dispatch("tasks/getComments", taskId);
     },
     async createComment() {
