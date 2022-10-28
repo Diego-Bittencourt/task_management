@@ -24,6 +24,7 @@ export default {
 <style scoped>
 header {
     width: 100vw;
+    max-height: 90px;
     background-color: #006172;
     color: #e6e6e6;
     padding: 1rem;
