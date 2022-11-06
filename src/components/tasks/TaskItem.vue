@@ -89,7 +89,11 @@ export default {
     },
     listLength() {
       const comments = this.listOfComments;
+      if (comments) {
       return Object.keys(comments).length;
+      } else {
+        return "Loading...";
+      }
     },
     taskcomments() {
       return [
