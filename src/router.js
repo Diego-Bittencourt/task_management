@@ -8,6 +8,7 @@ import RegisterUser from './pages/RegisterUser.vue';
 import StudentsInfo from './pages/students/StudentsInfo.vue';
 import StudentsList from './components/students/StudentsList.vue';
 import AddStudent from './components/students/AddStudent.vue';
+import AddExternal from './pages/AddExternal.vue';
 
 //import the store to use on the navigation guards
 import store from './store/index.js';
@@ -18,6 +19,10 @@ const router = createRouter({
         {
             path: '/',
             component: LandingPage
+        },
+        {
+            path: '/addexternal',
+            component: AddExternal
         },
         {
             path: '/students',
