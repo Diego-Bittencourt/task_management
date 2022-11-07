@@ -1,6 +1,6 @@
 <template>
 <base-card>
-  <form @submit.prevent="addNewStudent">
+  <form @submit.prevent="addNewStudent" v-if="!dataSent">
     <h1>Student's information</h1>
     <p>The Rainbow International School is going through renovation and we would like to ask to confirm the student's contact info.</p>
     <p>Please, insert the contact info and let's connect.</p>
@@ -35,6 +35,10 @@
     </div>
     <base-button>Submit</base-button>
   </form>
+  <div v-else>
+    <p>Thank you for your information.</p>
+  </div>
+
   </base-card>
 </template>
 
@@ -47,7 +51,8 @@ export default {
             studentPhone: "",
             studentClassTime: "",
             studentClassDay: "",
-            isFormValid: true
+            isFormValid: true,
+            dataSent: false
         }
     },
     methods: {
@@ -72,7 +77,7 @@ export default {
             }
 
             this.$store.dispatch("students/addStudent", newStudent);
-            this.$router.push('/students/list');
+            this.dataSent = true;
         }
     }
 }
